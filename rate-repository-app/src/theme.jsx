@@ -5,6 +5,7 @@ const theme = {
     primary: "#0366d6",
     black: "#17202a",
     silver: "#ccd1d1",
+    background: "#f4f6f6",
   },
   fontSizes: {
     body: 14,
