@@ -4,8 +4,9 @@ import Text from "./Text";
 
 const styles = StyleSheet.create({
   flexA: {
-    flexGrow: 0,
+    flexGrow: 1,
     padding: 10,
+    margin: 0,
   },
   text: {
     color: "#fdfefe",
