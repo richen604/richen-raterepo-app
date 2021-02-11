@@ -1,5 +1,10 @@
 import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  ScrollView,
+} from "react-native";
 import Constants from "expo-constants";
 import AppBarTab from "./AppBarTab";
 import { Link } from "react-router-native";
@@ -17,12 +22,14 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <Link to="/">
-        <AppBarTab name="Repositories" />
-      </Link>
-      <Link to="/login">
-        <AppBarTab name="Sign In" />
-      </Link>
+      <ScrollView horizontal>
+        <Link to="/">
+          <AppBarTab name="Repositories" />
+        </Link>
+        <Link to="/login">
+          <AppBarTab name="Sign In" />
+        </Link>
+      </ScrollView>
     </View>
   );
 };
