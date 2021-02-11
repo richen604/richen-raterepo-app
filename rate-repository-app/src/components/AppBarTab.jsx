@@ -7,12 +7,15 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     padding: 10,
   },
+  text: {
+    color: "#fdfefe",
+  },
 });
 
 const AppBarTab = ({ name }) => {
   return (
     <View style={styles.flexA}>
-      <Text color="textSecondary" fontWeight="bold">
+      <Text style={styles.text} fontWeight="bold">
         {name}
       </Text>
     </View>

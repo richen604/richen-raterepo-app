@@ -1,77 +1,29 @@
 import React from "react";
-import { Text, FlatList, View, StyleSheet } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
+import RepositoryItem from "./RepositoryItem";
+import { repositories } from "../data/data";
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
+    backgroundColor: "#f4f6f6",
   },
 });
-
-const repositories = [
-  {
-    id: "jaredpalmer.formik",
-    fullName: "jaredpalmer/formik",
-    description: "Build forms in React, without the tears",
-    language: "TypeScript",
-    forksCount: 1589,
-    stargazersCount: 21553,
-    ratingAverage: 88,
-    reviewCount: 4,
-    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/4060187?v=4",
-  },
-  {
-    id: "rails.rails",
-    fullName: "rails/rails",
-    description: "Ruby on Rails",
-    language: "Ruby",
-    forksCount: 18349,
-    stargazersCount: 45377,
-    ratingAverage: 100,
-    reviewCount: 2,
-    ownerAvatarUrl: "https://avatars1.githubusercontent.com/u/4223?v=4",
-  },
-  {
-    id: "django.django",
-    fullName: "django/django",
-    description: "The Web framework for perfectionists with deadlines.",
-    language: "Python",
-    forksCount: 21015,
-    stargazersCount: 48496,
-    ratingAverage: 73,
-    reviewCount: 5,
-    ownerAvatarUrl: "https://avatars2.githubusercontent.com/u/27804?v=4",
-  },
-  {
-    id: "reduxjs.redux",
-    fullName: "reduxjs/redux",
-    description: "Predictable state container for JavaScript apps",
-    language: "TypeScript",
-    forksCount: 13902,
-    stargazersCount: 52869,
-    ratingAverage: 0,
-    reviewCount: 0,
-    ownerAvatarUrl: "https://avatars3.githubusercontent.com/u/13142323?v=4",
-  },
-];
-
-const Item = ({ item }) => (
-  <>
-    <Text>Full name: {item.fullName}</Text>
-    <Text>Description: {item.description}</Text>
-    <Text>Language: {item.language}</Text>
-    <Text>Stars: {item.stargazersCount}</Text>
-    <Text>Forks: {item.forksCount}</Text>
-    <Text>Reviews: {item.reviewCount}</Text>
-    <Text>Rating: {item.ratingAverage}</Text>
-  </>
-);
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const renderItem = ({ item }) => <Item item={item} />;
+  const renderItem = ({ item }) => <RepositoryItem item={item} />;
+  const styles = StyleSheet.create({
+    list: {
+      backgroundColor: "#f4f6f6",
+      margin: 0,
+      padding: 0,
+    },
+  });
   return (
     <FlatList
+      style={styles.list}
       data={repositories}
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparator}

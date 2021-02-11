@@ -9,10 +9,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     margin: 25,
-    marginBottom: 5,
+    marginBottom: 0,
     marginLeft: 0,
     marginRight: 0,
     backgroundColor: "#24292e",
+    paddingBottom: 0,
   },
 });
 
