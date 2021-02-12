@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 import Text from "./Text";
+import theme from "../theme";
 
 const LanguageTag = ({ language }) => {
   const styles = StyleSheet.create({
@@ -16,6 +17,7 @@ const LanguageTag = ({ language }) => {
     },
     text: {
       color: "#fdfefe",
+      fontFamily: theme.fonts.main,
     },
   });
   return (
