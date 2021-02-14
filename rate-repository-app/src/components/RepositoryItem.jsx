@@ -22,30 +22,8 @@ const LanguageTag = ({ language }) => {
   });
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{language}</Text>
-    </View>
-  );
-};
-
-const InfoItem = ({ count, label }) => {
-  const styles = StyleSheet.create({
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    alignText: {
-      textAlign: "center",
-      padding: 1,
-    },
-  });
-  return (
-    <View style={styles.container}>
-      <Text style={styles.alignText} fontWeight="bold">
-        {count}
-      </Text>
-      <Text style={styles.alignText} color="textSecondary">
-        {label}
+      <Text testID="RepoItemLanguage" style={styles.text}>
+        {language}
       </Text>
     </View>
   );
@@ -80,13 +58,22 @@ const TitleContainer = ({ item }) => {
   return (
     <View style={styles.TitleContainer}>
       <View>
-        <Image style={styles.image} source={{ uri }} />
+        <Image testID="RepoItemImage" style={styles.image} source={{ uri }} />
       </View>
       <View style={styles.InnerContainer}>
-        <Text style={styles.titleItem} fontWeight="bold" color="textPrimary">
+        <Text
+          testID="RepoItemFullName"
+          style={styles.titleItem}
+          fontWeight="bold"
+          color="textPrimary"
+        >
           {item.fullName}
         </Text>
-        <Text style={styles.titleItem} color="textSecondary">
+        <Text
+          testID="RepoItemDescription"
+          style={styles.titleItem}
+          color="textSecondary"
+        >
           {item.description}
         </Text>
         <LanguageTag style={styles.titleItem} language={item.language} />
@@ -105,6 +92,15 @@ const InfoContainer = ({ item }) => {
       padding: 10,
       margin: 10,
     },
+    itemContainer: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    alignText: {
+      textAlign: "center",
+      padding: 1,
+    },
   });
 
   const numParse = (num) => {
@@ -115,10 +111,54 @@ const InfoContainer = ({ item }) => {
 
   return (
     <View style={styles.container}>
-      <InfoItem count={numParse(item.stargazersCount)} label="Stars" />
-      <InfoItem count={numParse(item.forksCount)} label="Forks" />
-      <InfoItem count={item.reviewCount} label="Reviews" />
-      <InfoItem count={item.ratingAverage} label="Rating" />
+      <View style={styles.itemContainer}>
+        <Text
+          testID="RepoItemStargazersCount"
+          style={styles.alignText}
+          fontWeight="bold"
+        >
+          {numParse(item.stargazersCount)}
+        </Text>
+        <Text style={styles.alignText} color="textSecondary">
+          Stars
+        </Text>
+      </View>
+      <View style={styles.itemContainer}>
+        <Text
+          testID="RepoItemForksCount"
+          style={styles.alignText}
+          fontWeight="bold"
+        >
+          {numParse(item.forksCount)}
+        </Text>
+        <Text style={styles.alignText} color="textSecondary">
+          Forks
+        </Text>
+      </View>
+      <View style={styles.itemContainer}>
+        <Text
+          testID="RepoItemReviewCount"
+          style={styles.alignText}
+          fontWeight="bold"
+        >
+          {item.reviewCount}
+        </Text>
+        <Text style={styles.alignText} color="textSecondary">
+          Reviews
+        </Text>
+      </View>
+      <View style={styles.itemContainer}>
+        <Text
+          testID="RepoItemRatingAverage"
+          style={styles.alignText}
+          fontWeight="bold"
+        >
+          {item.ratingAverage}
+        </Text>
+        <Text style={styles.alignText} color="textSecondary">
+          Rating
+        </Text>
+      </View>
     </View>
   );
 };
