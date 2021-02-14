@@ -80,13 +80,12 @@ const SignInFormik = ({ onSubmit }) => {
 };
 
 const SignInForm = () => {
-  const [signIn, result] = useSignIn();
+  const [signIn] = useSignIn();
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
       await signIn({ username, password });
-      console.log(result.data.authorize.accessToken);
     } catch (e) {
       console.log(e);
     }

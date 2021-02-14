@@ -13,7 +13,7 @@ const useRepositories = () => {
 
   useEffect(() => {
     if (called & (networkStatus > 6)) {
-      const fetchedRepositories = data ? data.repositories : [];
+      const fetchedRepositories = data ? data.repositories : null;
       setRepositories(fetchedRepositories);
     }
   }, [getRepositories]);
