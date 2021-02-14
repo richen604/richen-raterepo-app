@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 
 const createApolloClient = () => {
   return new ApolloClient({
-    uri: Constants.manifest.extra.APOLLO_URI,
+    uri: Constants.manifest.extra.ApolloUri,
   });
 };
 

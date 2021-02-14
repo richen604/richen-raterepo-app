@@ -23,6 +23,6 @@ export default {
   },
   sdkVersion: "38.0.0",
   extra: {
-    env: process.env.APOLLO_URI,
+    ApolloUri: process.env.APOLLO_URI,
   },
 };
