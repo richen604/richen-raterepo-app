@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Route, Switch, Redirect } from "react-router-native";
 import RepositoryList from "./RepositoryList";
+import RepositoryPage from "./RepositoryPage";
 import AppBar from "./AppBar";
 import SignInForm from "./SignInForm";
 import SignOut from "./SignOut";
@@ -26,6 +27,9 @@ const Main = () => {
         </Route>
         <Route path="/logout">
           <SignOut />
+        </Route>
+        <Route path="/repo/:id">
+          <RepositoryPage />
         </Route>
         <Redirect to="/" />
       </Switch>

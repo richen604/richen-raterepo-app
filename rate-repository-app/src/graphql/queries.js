@@ -21,3 +21,13 @@ export const GET_AUTH_USER = gql`
     }
   }
 `;
+
+export const GET_REPO = gql`
+  query getRepository($id: ID!) {
+    repository(id: $id) {
+      ...BaseRepo
+      url
+    }
+  }
+  ${BASE_REPO}
+`;
