@@ -12,3 +12,12 @@ export const ALL_REPOS = gql`
   }
   ${BASE_REPO}
 `;
+
+export const GET_AUTH_USER = gql`
+  query getAuthorizedUser {
+    authorizedUser {
+      id
+      username
+    }
+  }
+`;

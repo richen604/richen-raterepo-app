@@ -8,6 +8,7 @@ import {
 import Constants from "expo-constants";
 import AppBarTab from "./AppBarTab";
 import { Link } from "react-router-native";
+import useAuthUser from "../hooks/useAuthUser";
 
 const styles = StyleSheet.create({
   container: {
@@ -20,15 +21,23 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+  const { authUser } = useAuthUser();
   return (
     <View style={styles.container}>
       <ScrollView horizontal>
         <Link to="/">
           <AppBarTab name="Repositories" />
         </Link>
-        <Link to="/login">
-          <AppBarTab name="Sign In" />
-        </Link>
+        {authUser === null && (
+          <Link to="/login">
+            <AppBarTab name="Sign In" />
+          </Link>
+        )}
+        {authUser && (
+          <Link to="/logout">
+            <AppBarTab name="Sign Out" />
+          </Link>
+        )}
       </ScrollView>
     </View>
   );
