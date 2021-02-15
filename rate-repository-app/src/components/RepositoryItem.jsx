@@ -168,6 +168,8 @@ const RepositoryItem = ({ item }) => {
     RepoItem: {
       backgroundColor: "#fdfefe",
       margin: 15,
+      zIndex: 1,
+      position: "relative",
     },
   });
   return (

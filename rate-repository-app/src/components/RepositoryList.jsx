@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
@@ -11,10 +11,44 @@ const styles = StyleSheet.create({
   },
 });
 
+import RNPickerSelect from "react-native-picker-select";
+
+export const Dropdown = ({ setOrderDirectionParam, setOrderByParam }) => {
+  const handleSort = ({ orderBy, orderDirection }) => {
+    setOrderDirectionParam(orderDirection);
+    setOrderByParam(orderBy);
+  };
+  return (
+    <RNPickerSelect
+      placeholder={{
+        label: "Select an item...",
+        value: { orderDirection: "DESC", orderBy: "CREATED_AT" },
+      }}
+      onValueChange={(value) => handleSort(value)}
+      items={[
+        {
+          label: "Latest Repositories",
+          value: { orderDirection: "DESC", orderBy: "CREATED_AT" },
+        },
+        {
+          label: "Highest Rated Repositories",
+          value: { orderDirection: "DESC", orderBy: "RATING_AVERAGE" },
+        },
+        {
+          label: "Lowest Rated Repositories",
+          value: { orderDirection: "ASC", orderBy: "RATING_AVERAGE" },
+        },
+      ]}
+    />
+  );
+};
+
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [orderByParam, setOrderByParam] = useState(null);
+  const [orderDirectionParam, setOrderDirectionParam] = useState(null);
+  const { repositories } = useRepositories(orderByParam, orderDirectionParam);
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -35,6 +69,8 @@ const RepositoryList = () => {
       backgroundColor: "#f4f6f6",
       margin: 0,
       padding: 0,
+      zIndex: 1,
+      position: "relative",
     },
   });
 
@@ -45,6 +81,10 @@ const RepositoryList = () => {
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.fullName}
+      ListHeaderComponent={Dropdown({
+        setOrderDirectionParam,
+        setOrderByParam,
+      })}
     />
   );
 };

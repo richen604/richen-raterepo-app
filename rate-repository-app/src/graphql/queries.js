@@ -1,8 +1,11 @@
 import { gql } from "apollo-boost";
 import { BASE_REPO } from "./fragments";
 export const ALL_REPOS = gql`
-  query getRepositories {
-    repositories {
+  query getRepositories(
+    $orderDirection: OrderDirection
+    $orderBy: AllRepositoriesOrderBy
+  ) {
+    repositories(orderDirection: $orderDirection, orderBy: $orderBy) {
       edges {
         node {
           ...BaseRepo
