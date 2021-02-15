@@ -3,6 +3,8 @@ import { FlatList, View, StyleSheet, TouchableOpacity } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 import { useHistory } from "react-router-native";
+import { Searchbar } from "react-native-paper";
+import RNPickerSelect from "react-native-picker-select";
 
 const styles = StyleSheet.create({
   separator: {
@@ -11,9 +13,31 @@ const styles = StyleSheet.create({
   },
 });
 
-import RNPickerSelect from "react-native-picker-select";
+const ListHeader = ({
+  setOrderDirectionParam,
+  setOrderByParam,
+  searchQuery,
+  setSearchQuery,
+}) => (
+  <>
+    <Search {...{ searchQuery, setSearchQuery }} />
+    <Dropdown {...{ setOrderDirectionParam, setOrderByParam }} />
+  </>
+);
 
-export const Dropdown = ({ setOrderDirectionParam, setOrderByParam }) => {
+const Search = ({ searchQuery, setSearchQuery }) => {
+  const onChangeSearch = (query) => setSearchQuery(query);
+
+  return (
+    <Searchbar
+      placeholder="Search"
+      onChangeText={onChangeSearch}
+      value={searchQuery}
+    />
+  );
+};
+
+const Dropdown = ({ setOrderDirectionParam, setOrderByParam }) => {
   const handleSort = ({ orderBy, orderDirection }) => {
     setOrderDirectionParam(orderDirection);
     setOrderByParam(orderBy);
@@ -48,7 +72,12 @@ const ItemSeparator = () => <View style={styles.separator} />;
 const RepositoryList = () => {
   const [orderByParam, setOrderByParam] = useState(null);
   const [orderDirectionParam, setOrderDirectionParam] = useState(null);
-  const { repositories } = useRepositories(orderByParam, orderDirectionParam);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { repositories } = useRepositories(
+    orderByParam,
+    orderDirectionParam,
+    searchQuery
+  );
   const history = useHistory();
 
   const repositoryNodes = repositories
@@ -81,9 +110,11 @@ const RepositoryList = () => {
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(item) => item.fullName}
-      ListHeaderComponent={Dropdown({
+      ListHeaderComponent={ListHeader({
         setOrderDirectionParam,
         setOrderByParam,
+        searchQuery,
+        setSearchQuery,
       })}
     />
   );
