@@ -34,9 +34,14 @@ const AppBar = () => {
           </Link>
         )}
         {authUser && (
-          <Link to="/logout">
-            <AppBarTab name="Sign Out" />
-          </Link>
+          <>
+            <Link to="/review">
+              <AppBarTab name="Create a Review" />
+            </Link>
+            <Link to="/logout">
+              <AppBarTab name="Sign Out" />
+            </Link>
+          </>
         )}
       </ScrollView>
     </View>

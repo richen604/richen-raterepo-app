@@ -9,7 +9,7 @@ import theme from "../theme";
 
 const styles = StyleSheet.create({
   separator: {
-    height: 10,
+    height: 5,
     backgroundColor: "#f4f6f6",
   },
   list: {
@@ -17,20 +17,28 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
+  footer: {
+    height: 100,
+    backgroundColor: "#f4f6f6",
+  },
 });
 const ItemSeparator = () => <View style={styles.separator} />;
+const ItemFooter = () => <View style={styles.footer} />;
 const renderItem = ({ item }) => <ReviewItem item={item} />;
 
 const ReviewItem = ({ item }) => {
   const styles = StyleSheet.create({
-    reviewItem: {
+    container: {
       backgroundColor: "#fdfefe",
-      margin: 10,
+      margin: 5,
+    },
+    reviewItem: {
+      margin: 0,
       padding: 10,
       display: "flex",
       flexDirection: "row",
       borderRadius: 5,
-      width: "95%",
+      width: "80%",
     },
     ratingContainer: {
       display: "flex",
@@ -55,7 +63,7 @@ const ReviewItem = ({ item }) => {
       padding: 2,
     },
     contentText: {
-      width: "20%",
+      textAlign: "left",
       padding: 2,
     },
   });
@@ -74,18 +82,20 @@ const ReviewItem = ({ item }) => {
   */
 
   return (
-    <View style={styles.reviewItem}>
-      <View style={styles.ratingContainer}>
-        <Text style={styles.rating}>{item.rating}</Text>
-      </View>
-      <View styles={styles.contentContainer}>
-        <Text fontWeight="bold" style={styles.contentUsername}>
-          {item.user.username}
-        </Text>
-        <Text color="textSecondary">
-          {format(new Date(`${item.createdAt}`), "dd.MM.yy")}
-        </Text>
-        <Text style={styles.contentText}>{item.text}</Text>
+    <View style={styles.container}>
+      <View style={styles.reviewItem}>
+        <View style={styles.ratingContainer}>
+          <Text style={styles.rating}>{item.rating}</Text>
+        </View>
+        <View styles={styles.contentContainer}>
+          <Text fontWeight="bold" style={styles.contentUsername}>
+            {item.user.username}
+          </Text>
+          <Text color="textSecondary">
+            {format(new Date(`${item.createdAt}`), "dd.MM.yy")}
+          </Text>
+          <Text style={styles.contentText}>{`${item.text}`}</Text>
+        </View>
       </View>
     </View>
   );
@@ -114,6 +124,7 @@ const ReviewsList = ({ headerComponent }) => {
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={(reviewNodes) => reviewNodes.id}
+      ListFooterComponent={ItemFooter}
     />
   );
 };

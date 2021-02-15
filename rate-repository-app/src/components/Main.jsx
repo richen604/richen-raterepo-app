@@ -6,11 +6,13 @@ import RepositoryPage from "./RepositoryPage";
 import AppBar from "./AppBar";
 import SignInForm from "./SignInForm";
 import SignOut from "./SignOut";
+import ReviewForm from "./ReviewForm";
 
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     flexShrink: 1,
+    backgroundColor: "#f4f6f6",
   },
 });
 
@@ -30,6 +32,9 @@ const Main = () => {
         </Route>
         <Route path="/repo/:id">
           <RepositoryPage />
+        </Route>
+        <Route path="/review">
+          <ReviewForm />
         </Route>
         <Redirect to="/" />
       </Switch>
