@@ -4,8 +4,9 @@ import RepositoryItem from "./RepositoryItem";
 import { useParams } from "react-router-native";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_REPO } from "../graphql/queries";
+import ReviewsList from "./ReviewsList";
 
-const RepositoryPage = () => {
+const RepositoryHeader = () => {
   const id = useParams().id;
   const getRepo = useQuery(GET_REPO, {
     fetchPolicy: "cache-and-network",
@@ -19,13 +20,22 @@ const RepositoryPage = () => {
   const handleButton = async (url) => {
     await Linking.openURL(url);
   };
+
   return (
-    <View>
+    <>
       <RepositoryItem item={getRepo.data.repository} />
       <Button
         title="View on Github"
         onPress={() => handleButton(getRepo.data.repository.url)}
       />
+    </>
+  );
+};
+
+const RepositoryPage = () => {
+  return (
+    <View>
+      <ReviewsList headerComponent={RepositoryHeader} />
     </View>
   );
 };
