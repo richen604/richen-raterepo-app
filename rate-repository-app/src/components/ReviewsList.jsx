@@ -1,11 +1,10 @@
-import { useQuery } from "@apollo/react-hooks";
 import { format } from "date-fns";
 import React from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import { GET_REVIEWS } from "../graphql/queries";
 import { useParams } from "react-router-native";
 import Text from "./Text";
 import theme from "../theme";
+import useGetReview from "../hooks/useGetReview";
 
 const styles = StyleSheet.create({
   separator: {
@@ -68,19 +67,6 @@ const ReviewItem = ({ item }) => {
     },
   });
 
-  /*
-    "createdAt": "2021-02-12T11:24:56.998Z",
-  "id": "753f3e99-e73a-43a3-9a50-b30d7727c0eb.jaredpalmer.formik",
-  "rating": 96,
-  "text": "Lorem ipsum dolor sit amet, per brute apeirian ei. Malis facilisis vel ex, ex vivendo signiferumque nam, nam ad natum electram constituto. Causae latine at sea, ex nec ullum ceteros, est ut dicant splendide. Omnis electram ullamcorper est ut.",
-  "user": Object {
-    "__typename": "User",
-    "id": "753f3e99-e73a-43a3-9a50-b30d7727c0eb",
-    "username": "leeroyjenkins",
-  },
-}
-  */
-
   return (
     <View style={styles.container}>
       <View style={styles.reviewItem}>
@@ -103,18 +89,16 @@ const ReviewItem = ({ item }) => {
 
 const ReviewsList = ({ headerComponent }) => {
   const id = useParams().id;
-  const getReviews = useQuery(GET_REVIEWS, {
-    fetchPolicy: "cache-and-network",
-    variables: {
-      id,
-    },
+  const { reviews, fetchMore } = useGetReview({
+    id,
+    first: 4,
   });
 
-  if (getReviews.loading) return null;
+  const reviewNodes = reviews ? reviews.edges.map((edge) => edge.node) : [];
 
-  const reviewNodes = getReviews.data.repository.reviews
-    ? getReviews.data.repository.reviews.edges.map((edge) => edge.node)
-    : [];
+  const onEndReached = () => {
+    fetchMore();
+  };
 
   return (
     <FlatList
@@ -123,8 +107,10 @@ const ReviewsList = ({ headerComponent }) => {
       data={reviewNodes}
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparator}
-      keyExtractor={(reviewNodes) => reviewNodes.id}
       ListFooterComponent={ItemFooter}
+      keyExtractor={(reviewNodes) => reviewNodes.id}
+      onEndReachedThreshold={0.5}
+      onEndReached={onEndReached}
     />
   );
 };

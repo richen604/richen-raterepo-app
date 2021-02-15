@@ -73,12 +73,14 @@ const RepositoryList = () => {
   const [orderByParam, setOrderByParam] = useState(null);
   const [orderDirectionParam, setOrderDirectionParam] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { repositories } = useRepositories(
+  const history = useHistory();
+
+  const { repositories, fetchMore } = useRepositories({
     orderByParam,
     orderDirectionParam,
-    searchQuery
-  );
-  const history = useHistory();
+    searchQuery,
+    first: 8,
+  });
 
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
@@ -86,6 +88,10 @@ const RepositoryList = () => {
 
   const handleRepoPage = (item) => {
     history.push(`/repo/${item.id}`);
+  };
+
+  const onEndReach = () => {
+    fetchMore();
   };
 
   const renderItem = ({ item }) => (
@@ -116,6 +122,8 @@ const RepositoryList = () => {
         searchQuery,
         setSearchQuery,
       })}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
