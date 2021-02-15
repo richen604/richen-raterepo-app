@@ -29,9 +29,14 @@ const AppBar = () => {
           <AppBarTab name="Repositories" />
         </Link>
         {authUser === null && (
-          <Link to="/login">
-            <AppBarTab name="Sign In" />
-          </Link>
+          <>
+            <Link to="/login">
+              <AppBarTab name="Sign In" />
+            </Link>
+            <Link to="/signup">
+              <AppBarTab name="Sign Up" />
+            </Link>
+          </>
         )}
         {authUser && (
           <>
