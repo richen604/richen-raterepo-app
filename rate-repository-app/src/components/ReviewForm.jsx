@@ -92,7 +92,7 @@ const ReviewFormik = ({ onSubmit }) => {
       />
       <TouchableWithoutFeedback onPress={onSubmit}>
         <View style={styles.button}>
-          <Text style={styles.buttonText}>Sign In</Text>
+          <Text style={styles.buttonText}>Create Review</Text>
         </View>
       </TouchableWithoutFeedback>
     </View>

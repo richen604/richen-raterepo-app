@@ -8,6 +8,7 @@ import SignInForm from "./SignInForm";
 import SignOut from "./SignOut";
 import ReviewForm from "./ReviewForm";
 import SignUpForm from "./SignUpForm";
+import UserInfo from "./UserInfo";
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +40,9 @@ const Main = () => {
         </Route>
         <Route path="/signup">
           <SignUpForm />
+        </Route>
+        <Route path="/user/:id">
+          <UserInfo />
         </Route>
         <Redirect to="/" />
       </Switch>

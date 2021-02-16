@@ -2,15 +2,11 @@ import { gql } from "apollo-boost";
 import { BASE_REPO } from "./fragments";
 export const ALL_REPOS = gql`
   query getRepositories(
-    $first: Int
-    $after: String
     $searchKeyword: String
     $orderDirection: OrderDirection
     $orderBy: AllRepositoriesOrderBy
   ) {
     repositories(
-      first: $first
-      after: $after
       searchKeyword: $searchKeyword
       orderDirection: $orderDirection
       orderBy: $orderBy
@@ -20,13 +16,6 @@ export const ALL_REPOS = gql`
           ...BaseRepo
           createdAt
         }
-        cursor
-      }
-      pageInfo {
-        endCursor
-        startCursor
-        totalCount
-        hasNextPage
       }
     }
   }
@@ -34,10 +23,25 @@ export const ALL_REPOS = gql`
 `;
 
 export const GET_AUTH_USER = gql`
-  query getAuthorizedUser {
+  query getAuthorizedUser($includeReviews: Boolean = false) {
     authorizedUser {
       id
       username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            repositoryId
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;

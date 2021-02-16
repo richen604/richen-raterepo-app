@@ -5,6 +5,7 @@ import useRepositories from "../hooks/useRepositories";
 import { useHistory } from "react-router-native";
 import { Searchbar } from "react-native-paper";
 import RNPickerSelect from "react-native-picker-select";
+import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
@@ -74,12 +75,12 @@ const RepositoryList = () => {
   const [orderDirectionParam, setOrderDirectionParam] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const history = useHistory();
+  const [debouncedSearch] = useDebounce(searchQuery, 500);
 
-  const { repositories, fetchMore } = useRepositories({
+  const { repositories } = useRepositories({
     orderByParam,
     orderDirectionParam,
-    searchQuery,
-    first: 8,
+    debouncedSearch,
   });
 
   const repositoryNodes = repositories
@@ -88,10 +89,6 @@ const RepositoryList = () => {
 
   const handleRepoPage = (item) => {
     history.push(`/repo/${item.id}`);
-  };
-
-  const onEndReach = () => {
-    fetchMore();
   };
 
   const renderItem = ({ item }) => (
@@ -122,8 +119,6 @@ const RepositoryList = () => {
         searchQuery,
         setSearchQuery,
       })}
-      onEndReached={onEndReach}
-      onEndReachedThreshold={0.5}
     />
   );
 };
