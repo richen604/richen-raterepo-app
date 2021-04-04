@@ -1,8 +1,8 @@
 import "dotenv/config";
 
 export default {
-  name: "rate-repository-app",
-  slug: "rate-repository-app",
+  name: "richen-raterepo-app",
+  slug: "richen-raterepo-app",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -15,6 +15,9 @@ export default {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ["**/*"],
+  android: {
+    package: "com.richen.raterepo",
+  },
   ios: {
     supportsTablet: true,
   },
